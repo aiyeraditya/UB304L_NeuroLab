@@ -13,8 +13,8 @@ xlabel('Time (s)')
 ylabel('Voltage (V)')
 
 % Visualsing Waveform of the audio file at a much finer scale 
-% Assumption: Highest Voltage will be during stimulation
-% And 
+% Assumption: Highest Voltage will be during stimulation, hence, during
+% An Action Potential
 maximum = max(voltageData);
 index = find(voltageData == maximum);
 figure
@@ -39,14 +39,19 @@ title('Number of Spikes vs Threshold Values')
 ylabel('Number of Spikes')
 xlabel('Threshold (V)')
 
-% The next few lines are for getting the digitized data from timepoints
+% Defining Threshold for Action Potentials And Show Threshold on Figure
 action_threshold = 0.3;
+figure(1)
+hline = refline([0 0.3]);
+hline.Color = 'red';
+
+% The next few lines are for getting the digitized data from timepoints
 baselineL_start = 4;
 baselineL_stop = 12;
 low_start = 25.5;
 low_stop = 39.5;
 [spikes_low_baseline, spikes_low, mean_baselineL, mean_low] = plot_data(...
-    baselineL_start, baselineL_stop, low_start, low_stop);
+    baselineL_start, baselineL_stop, low_start, low_stop, 'Low');
 
     
 baselineM_start = 79;
@@ -54,7 +59,7 @@ baselineM_stop = 90;
 medium_start = 102;
 medium_stop = 108;
 [spikes_medium_baseline, spikes_medium, mean_baselineM, mean_medium] = ...
-    plot_data(baselineM_start, baselineM_stop, medium_start, medium_stop);
+    plot_data(baselineM_start, baselineM_stop, medium_start, medium_stop, 'Medium');
 
 
 baselineH_start = 308;
@@ -62,7 +67,7 @@ baselineH_stop = 315;
 high_start = 325.5;
 high_stop = 344;
 [spikes_high_baseline, spikes_high, mean_baselineH, mean_high] = ...
-    plot_data(baselineH_start, baselineH_stop, high_start, high_stop);
+    plot_data(baselineH_start, baselineH_stop, high_start, high_stop, 'High');
 
 
 % Bar Plot for Firing Rates
@@ -70,6 +75,8 @@ figure
 num_spikes = [spikes_low_baseline, spikes_low, spikes_medium_baseline, ...
     spikes_medium,  spikes_high_baseline, spikes_high];
 bar(num_spikes)
+ylabel('Number of Spikes')
+set(gca,'XTickLabel',{'Baseline','Low', 'Baseline', 'Medium', 'Baseline',});
 
 figure
 peak_means = [mean_baselineL, mean_low, mean_baselineM, mean_medium, ...

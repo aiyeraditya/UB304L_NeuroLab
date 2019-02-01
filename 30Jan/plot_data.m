@@ -1,19 +1,32 @@
 % Function for Plotting The Plots
 
-function [spikes_baseline, spikes, mean_baseline, mean1] = plot_data(baseline_start, baseline_stop, start, stop)
+function [spikes_baseline, spikes, mean_baseline, mean1] = plot_data(baseline_start, baseline_stop, start, stop, type)
+    global action_threshold
     global voltageData
     global samplingRate
-    global action_threshold
-    [voltage_baselineL, time_baselineL] = get_voltage(baseline_start, baseline_stop);
-    [voltage_low, time_low] = get_voltage(start, stop);
+    [voltage_baseline, time_baseline] = get_voltage(baseline_start, baseline_stop);
+    length(voltage_baseline);
+    [voltage, time] = get_voltage(start, stop);
+    figure
     subplot(1,2,1);
-        plot(voltage_baselineL)
+        plot(time_baseline, voltage_baseline)
+        ylim([-1,1]);
+        ylabel('Voltage (V)')
+        xlabel('Time (s)')
+        title('Baseline Firing')
     subplot(1,2,2);
-        plot(voltage_low)
-    [data_baselineL, peakIndexL] = findpeaks(voltage_baselineL,'MinPeakHeight',action_threshold);
-    spikes_baseline = length(data_baselineL);
-    [data_peaklow, peakIndexlow] = findpeaks(voltage_low,'MinPeakHeight',action_threshold);
-    spikes = length(data_peaklow);
-    mean_baseline = mean(data_baselineL);
-    mean1 = mean(data_peaklow);
+        plot(time, voltage)
+        ylim([-1,1]);
+        ylabel('Voltage (V)')
+        xlabel('Time (s)')
+        title(strcat('Active Stimulation - ',type))
+    saveas(gcf,strcat('Figure', type),'epsc');
+    [data_baseline, peakIndex] = findpeaks(voltage_baseline,'MinPeakHeight',action_threshold);
+    spikes_baseline = length(data_baseline) / (baseline_stop - baseline_start);
+    %spikes_baseline = spikes_baseline;
+    [data_peak, peakIndex] = findpeaks(voltage,'MinPeakHeight',action_threshold);
+    spikes = length(data_peak) / (stop - start);
+    %spikes = spikes;
+    mean_baseline = mean(data_baseline);
+    mean1 = mean(data_peak);
 end
