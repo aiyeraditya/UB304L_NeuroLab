@@ -13,8 +13,8 @@ xlabel('Time (s)')
 ylabel('Voltage (V)')
 
 % Visualsing Waveform of the audio file at a much finer scale 
-% Assumption: Highest Voltage will be during stimulation, hence, during
-% An Action Potential
+% Assumption: Highest Voltage will be during stimulation
+% And 
 maximum = max(voltageData);
 index = find(voltageData == maximum);
 figure
@@ -39,13 +39,8 @@ title('Number of Spikes vs Threshold Values')
 ylabel('Number of Spikes')
 xlabel('Threshold (V)')
 
-% Defining Threshold for Action Potentials And Show Threshold on Figure
-action_threshold = 0.3;
-figure(1)
-hline = refline([0 0.3]);
-hline.Color = 'red';
-
 % The next few lines are for getting the digitized data from timepoints
+action_threshold = 0.3;
 baselineL_start = 4;
 baselineL_stop = 12;
 low_start = 25.5;

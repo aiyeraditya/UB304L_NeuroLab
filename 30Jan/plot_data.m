@@ -4,8 +4,8 @@ function [spikes_baseline, spikes, mean_baseline, mean1] = plot_data(baseline_st
     global voltageData
     global samplingRate
     global action_threshold
-    [voltage_baselineL, time_baselineL] = get_voltage(voltageData, baseline_start, baseline_stop, samplingRate);
-    [voltage_low, time_low] = get_voltage(voltageData, start, stop, samplingRate);
+    [voltage_baselineL, time_baselineL] = get_voltage(baseline_start, baseline_stop);
+    [voltage_low, time_low] = get_voltage(start, stop);
     subplot(1,2,1);
         plot(voltage_baselineL)
     subplot(1,2,2);
