@@ -1,0 +1,5 @@
+local*
+/local
+*.wav
+*.pyc
+.DS_Store
