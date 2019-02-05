@@ -17,7 +17,7 @@ plot(voltageData(index-50:index+50))
 title('Waveform of Action Potential')
 ylabel('Voltage(V)')
 xlabel('Time (Undefined)')
-saveas(gcf,strcat('ActionPotential'),'epsc')
+saveas(gcf,strcat('ActionPotential'),'jpeg')
 
 % Indentifying Thresholds
 count = 1;
@@ -34,7 +34,7 @@ plot(initial:step:maximum,spikes);
 title('Number of Spikes vs Threshold Values')
 ylabel('Number of Spikes')
 xlabel('Threshold (V)')
-saveas(gcf,strcat('Threshold'),'epsc')
+saveas(gcf,strcat('Threshold'),'jpeg')
 
 % Defining Threshold for Action Potentials And Show Threshold on Figure
 action_threshold = 0.5;
@@ -46,7 +46,7 @@ xlabel('Time (s)')
 ylabel('Voltage (V)')
 hline = refline([0 action_threshold]);
 hline.Color = 'red';
-saveas(gcf,strcat('RawPlot'),'epsc')
+saveas(gcf,strcat('RawPlot'),'jpeg')
 
 % The next few lines are for getting the digitized data from timepoints
 baselineL_start = 196;
@@ -81,7 +81,7 @@ bar(num_spikes)
 ylabel('Number of Spikes')
 title('Firing Rates and Stimulation - "Rate Coding"')
 set(gca,'XTickLabel',{'Baseline','Low', 'Baseline', 'Medium', 'Baseline', 'High'});
-saveas(gcf,strcat('SpikesBarPlot'),'epsc')
+saveas(gcf,strcat('SpikesBarPlot'),'jpeg')
 
 figure
 peak_means = [mean_baselineL, mean_low, mean_baselineM, mean_medium, ...
@@ -90,14 +90,30 @@ bar(peak_means)
 title('Mean of Action Potential Peaks')
 ylabel('Voltage (V)')
 set(gca,'XTickLabel',{'Baseline','Low', 'Baseline', 'Medium', 'Baseline', 'High'});
-saveas(gcf,strcat('ActionPotentialPeaks'),'epsc')
+saveas(gcf,strcat('ActionPotentialPeaks'),'jpeg')
 
 % For Adaptation
 baseline_start = 410;
 baseline_stop = 420;
 [voltage_baseline, time_baseline] = get_voltage(baseline_start, baseline_stop);
+figure
+plot(time_baseline, voltage_baseline)
+ylim([-1,1]);
+ylabel('Voltage (V)');
+xlabel('Time (s)');
+title('Baseline for Adaptation');
+saveas(gcf,strcat('Adaptation_Baseline'),'jpeg');
+
 start = 421;
 stop = 451;
+[voltage, time] = get_voltage(start, stop);
+figure
+plot(time, voltage)
+ylim([-1,1]);
+ylabel('Voltage (V)');
+xlabel('Time (s)');
+title('Raw Data for Adaptation');
+saveas(gcf,strcat('Adaptation_Raw'),'jpeg');
 count = 1;
 spikes = (0);
 for s1 = start:1:stop
@@ -110,4 +126,4 @@ bar(spikes)
 ylabel('Number of Spikes')
 xlabel('Time Bins')
 title('Firing Rate with Continual Stimulus - Adaptation')
-saveas(gcf,strcat('Adaptation'),'epsc')
+saveas(gcf,strcat('Adaptation'),'jpeg')

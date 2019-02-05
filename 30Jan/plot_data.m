@@ -20,7 +20,7 @@ function [spikes_baseline, spikes, mean_baseline, mean1] = plot_data(baseline_st
         ylabel('Voltage (V)')
         xlabel('Time (s)')
         title(strcat('Active Stimulation - ',type))
-    saveas(gcf,strcat('Figure', type),'epsc');
+    saveas(gcf,strcat('Figure', type),'jpeg');
     [data_baseline, peakIndex] = findpeaks(voltage_baseline,'MinPeakHeight',action_threshold);
     spikes_baseline = length(data_baseline) / (baseline_stop - baseline_start);
     %spikes_baseline = spikes_baseline;
