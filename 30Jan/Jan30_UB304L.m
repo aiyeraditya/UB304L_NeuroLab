@@ -37,7 +37,7 @@ xlabel('Threshold (V)')
 saveas(gcf,strcat('Threshold'),'jpeg')
 
 % Defining Threshold for Action Potentials And Show Threshold on Figure
-action_threshold = 0.5;
+action_threshold = 0.25;
 % Plotting Raw Voltage Data as a function of Time
 figure
 plot(time_points, voltageData)

@@ -41,6 +41,6 @@ function [spikes_baseline, spikes, mean_baseline, mean1] = plot_data(baseline_st
             plot(peakIndex/samplingRate + start, data_peak, '*')
         end
         hold off;
-    saveas(gcf,strcat('Figure', type, 'Threshold),'jpeg');
+    %saveas(gcf,strcat('Figure', type, 'Threshold),'jpeg'));
     
 end
