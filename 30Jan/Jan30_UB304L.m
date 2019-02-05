@@ -127,3 +127,4 @@ ylabel('Number of Spikes')
 xlabel('Time Bins')
 title('Firing Rate with Continual Stimulus - Adaptation')
 saveas(gcf,strcat('Adaptation'),'jpeg')
+
